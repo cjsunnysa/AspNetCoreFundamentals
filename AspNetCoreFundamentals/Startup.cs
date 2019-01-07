@@ -14,11 +14,12 @@ namespace AspNetCoreFundamentals
     {
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton<IGreeter, Greeter>();
         }
 
         public void Configure(IApplicationBuilder app,
                               IHostingEnvironment env,
-                              IConfiguration configuration)
+                              IGreeter greeter)
         {
             if (env.IsDevelopment())
             {
@@ -27,7 +28,7 @@ namespace AspNetCoreFundamentals
 
             app.Run(async (context) =>
             {
-                var greeting = configuration["Greeting"];
+                var greeting = greeter.GetMessageOfTheDay();
 
                 await context.Response.WriteAsync(greeting);
             });
