@@ -1,4 +1,6 @@
-﻿namespace AspNetCoreFundamentals
+﻿using Microsoft.Extensions.Configuration;
+
+namespace AspNetCoreFundamentals
 {
     public interface IGreeter
     {
@@ -7,9 +9,16 @@
 
     public class Greeter : IGreeter
     {
+        private readonly IConfiguration _configuration;
+
+        public Greeter(IConfiguration configuration)
+        {
+            this._configuration = configuration;
+        }
+
         public string GetMessageOfTheDay()
         {
-            return "Greetings!!";
+            return _configuration["Greeting"];
         }
     }
 }
