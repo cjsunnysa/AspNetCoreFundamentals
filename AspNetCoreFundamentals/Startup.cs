@@ -16,6 +16,7 @@ namespace AspNetCoreFundamentals
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<IGreeter, Greeter>();
+            services.AddMvc();
         }
 
         public void Configure(IApplicationBuilder app,
@@ -28,7 +29,9 @@ namespace AspNetCoreFundamentals
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseFileServer();
+            app.UseStaticFiles();
+
+            app.UseMvcWithDefaultRoute();
 
             app.Run(async (context) =>
             {
